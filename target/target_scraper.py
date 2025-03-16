@@ -1,347 +1,325 @@
+import time
 import json
-import re
-import requests
 import os
-from pathlib import Path
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 from bs4 import BeautifulSoup
+import re
+import argparse
 
-# Headers to mimic a browser
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-    'Accept-Language': 'en-US,en;q=0.9',
-}
-
-def extract_volume_weight(soup):
+def scrape_target_products(url, output_dir="results", search_term="", items_per_page=24, max_pages=12):
     """
-    Extract volume and weight information from the product page.
-    Returns a structured dictionary with units and values.
+    Scrape products from Target using URL-based pagination with the Nao parameter
     """
-    # Find the main product container to avoid recommended products
-    main_product_container = soup.select_one("div[data-test='product-details-content']")
-    if not main_product_container:
-        # Try alternative selectors
-        main_product_container = soup.select_one("div[data-test='product-details']")
+    # Create output directory
+    os.makedirs(output_dir, exist_ok=True)
     
-    if not main_product_container:
-        # Fallback to the whole page but we'll be more strict with validation
-        main_product_container = soup
+    # Set output filename based on search term
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    if not search_term:
+        search_term = "target_products"
+    output_file = os.path.join(output_dir, f"target_{search_term.replace(' ', '_')}_{timestamp}.json")
+    print(f"Starting scrape for URL: {url}")
     
-    # Lists to collect volume/weight information
-    found_items = []
+    # Configure Chrome options
+    chrome_options = Options()
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     
-    # APPROACH 1: Look for size selectors in the UI within the main product container
-    size_buttons = main_product_container.select("button[data-test='size-selector-button']")
-    for button in size_buttons:
-        button_text = button.get_text().strip()
-        # Extract volume/weight patterns from buttons
-        if re.search(r'\d+(?:\.\d+)?\s*(?:oz|g|ml|fl)', button_text, re.IGNORECASE):
-            found_items.append(button_text)
+    # Disable WebGL to avoid deprecation warnings
+    chrome_options.add_argument("--disable-webgl")
     
-    # Also check for Count + size indicators
-    count_elements = main_product_container.select("div:-soup-contains('Count') + div")
-    for elem in count_elements:
-        elem_text = elem.get_text().strip()
-        if re.search(r'\d+(?:\.\d+)?\s*(?:oz|g|ml|fl)', elem_text, re.IGNORECASE):
-            found_items.append(elem_text)
+    # Initialize the driver
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.set_page_load_timeout(30)
     
-    # APPROACH 2: Look for size text in the dropdown sections
-    size_dropdown = main_product_container.select_one("div[data-test='sizeDropdown']") 
-    if size_dropdown:
-        size_text = size_dropdown.get_text()
-        oz_matches = re.findall(r'(\d+(?:\.\d+)?\s*(?:oz|ounce)s?)', size_text, re.IGNORECASE)
-        found_items.extend(oz_matches)
+    all_products = []
+    unique_products = {}
     
-    # APPROACH 3: Look in the specifications section within the main product
-    spec_elements = main_product_container.select("div[data-test='item-details-specifications'], div[class*='Specifications']")
-    if not spec_elements:
-        # Try more general approach if specific selector doesn't work
-        spec_elements = main_product_container.select("div:-soup-contains('Specifications')")
-    
-    for spec in spec_elements:
-        spec_text = spec.get_text()
-        # Look for net weight, size, volume patterns
-        net_weight_matches = re.findall(r'net\s+weight:?\s*([^:;]*?)(?:ounces|oz|grams|g|pounds|lbs)', spec_text, re.IGNORECASE)
-        if net_weight_matches:
-            for match in net_weight_matches:
-                clean_match = match.strip()
-                if re.search(r'\d', clean_match):  # Ensure it contains a number
-                    found_items.append(clean_match + " oz" if "oz" not in clean_match.lower() else clean_match)
-    
-    # APPROACH 4: Look for volume/weight in the title
-    title_element = main_product_container.select_one("h1[data-test='product-title']")
-    if title_element:
-        title_text = title_element.get_text()
-        # Look for common volume/weight patterns in title
-        fl_oz_matches = re.findall(r'(\d+(?:\.\d+)?\s*(?:fl\.?\s*oz|fluid\s*ounce)s?)', title_text, re.IGNORECASE)
-        oz_matches = re.findall(r'(\d+(?:\.\d+)?\s*(?:oz|ounce)s?(?!\s*fl))', title_text, re.IGNORECASE)
-        g_matches = re.findall(r'(\d+(?:\.\d+)?\s*(?:g|gram)s?)', title_text, re.IGNORECASE)
-        ml_matches = re.findall(r'(\d+(?:\.\d+)?\s*(?:ml|milliliter)s?)', title_text, re.IGNORECASE)
+    try:
+        # Navigate to the URL
+        print(f"Loading URL: {url}")
+        driver.get(url)
         
-        found_items.extend(fl_oz_matches)
-        found_items.extend(oz_matches)
-        found_items.extend(g_matches)
-        found_items.extend(ml_matches)
-    
-    # APPROACH 5: Check for hidden info in the main product section's HTML
-    product_html = str(main_product_container)
-    # Check for specific measurements in structured data
-    weight_matches = re.findall(r'"netWeight":?"?([^",}]+)', product_html, re.IGNORECASE)
-    for match in weight_matches:
-        if re.search(r'\d', match):
-            # Try to extract quantity and unit
-            qty_unit_match = re.search(r'([\d.]+)\s*([a-zA-Z]+)', match)
-            if qty_unit_match:
-                qty, unit = qty_unit_match.groups()
-                found_items.append(f"{qty} {unit}")
-            else:
-                found_items.append(match)
-    
-    # APPROACH 6: Product variant matching
-    # Extract price information to match with volume/weight
-    price_element = main_product_container.select_one("span[data-test='product-price']")
-    price_text = price_element.get_text() if price_element else ""
-    
-    # If we have a price range, we should have multiple sizes
-    if ' - ' in price_text and not found_items:
-        # Look for all potential size indicators in the main product section
-        size_elements = main_product_container.select("button, div")
-        for elem in size_elements:
-            elem_text = elem.get_text().strip()
-            if re.search(r'\b\d+(?:\.\d+)?\s*(?:oz|g|ml|fl)\b', elem_text, re.IGNORECASE):
-                found_items.append(elem_text)
-    
-    # SPECIAL CASE: For Milani Rose Powder Blush
-    if "Milani Rose Powder Blush" in product_html:
-        if '.6 oz' not in ' '.join(found_items) and '0.6 oz' not in ' '.join(found_items):
-            found_items.append('.6 oz')
-    
-    # Clean up the results and remove duplicates
-    cleaned_items = []
-    for item in found_items:
-        # Clean and split if needed (for combined items like '0.02oz0.33oz')
-        item = item.strip()
-        
-        # Skip items with escaped HTML
-        if '\\u003c' in item or 'u003c' in item or '</' in item:
-            continue
-            
-        if re.match(r'\d+\.\d+oz\d+\.\d+oz', item):
-            # Split combined sizes (0.02oz0.33oz → 0.02oz, 0.33oz)
-            matches = re.findall(r'(\d+\.\d+oz)', item)
-            cleaned_items.extend(matches)
-        else:
-            cleaned_items.append(item)
-    
-    # Remove duplicates while preserving order
-    unique_items = []
-    seen_values = set()
-    
-    for item in cleaned_items:
-        # Extract numeric value for deduplication
-        numeric_match = re.search(r'([\d.]+)', item)
-        if numeric_match:
-            value = float(numeric_match.group(1))
-            
-            # Skip if we've seen a similar value (within 0.01)
-            duplicate = False
-            for seen_value in seen_values:
-                if abs(value - seen_value) < 0.01:
-                    duplicate = True
-                    break
-                    
-            if not duplicate:
-                seen_values.add(value)
-                unique_items.append(item)
-        else:
-            unique_items.append(item)
-    
-    # Consistency check: try to match number of prices with number of weights
-    if price_element and ' - ' in price_text:
-        # We have a price range, so we should have multiple weights
-        price_count = len(price_text.split(' - '))
-        
-        # If price count doesn't match weight count, we might have wrong data
-        if len(unique_items) > price_count:
-            # Keep only the first price_count items (most likely to be correct)
-            unique_items = unique_items[:price_count]
-    
-    # Process into the desired format
-    result = {"items": unique_items}
-    
-    # Create a structured format with unit and values if possible
-    if unique_items:
-        # Extract units and values
-        units = []
-        values = []
-        
-        for item in unique_items:
-            # Extract the numeric value and unit
-            match = re.match(r'([\d.]+)\s*([a-zA-Z\s.]+)', item)
-            if match:
-                value, unit = match.groups()
-                values.append(float(value))
-                units.append(unit.strip())
-        
-        if units and values:
-            result["structured"] = {
-                "units": units,
-                "values": values
-            }
-    
-    return result
-
-def parse_price(price_str):
-    """
-    Convert price strings to numeric values.
-    Returns a list of prices.
-    """
-    # Handle price ranges like "$16.00 - $27.00"
-    if ' - ' in price_str:
-        prices = price_str.split(' - ')
-        return [float(re.sub(r'[^\d.]', '', price)) for price in prices]
-    else:
-        # Handle single price
-        return [float(re.sub(r'[^\d.]', '', price_str))]
-
-def test_examples():
-    # Create processed_results directory if it doesn't exist
-    processed_dir = Path("processed_results")
-    processed_dir.mkdir(exist_ok=True)
-    
-    # Test URLs from the examples
-    test_cases = [
-        {
-            "title": "Milani Rose Powder Blush",
-            "price": "$8.99",
-            "url": "https://www.target.com/p/milani-rose-powder-blush/-/A-46787424?preselect=46786697#lnk=sametab",
-            "tcin": "46787424",
-            "store": "target"
-        },
-        {
-            "title": "Benefit Cosmetics Benetint Liquid Lip Blush & Cheek Tint - Ulta Beauty",
-            "price": "$13.00 - $35.00",
-            "url": "https://www.target.com/p/benefit-cosmetics-liquid-lip-blush-tint-0-2-oz-ulta-beauty/-/A-90978238?preselect=86369907#lnk=sametab",
-            "tcin": "90978238",
-            "store": "target"
-        }
-    ]
-    
-    results = []
-    
-    for idx, product in enumerate(test_cases):
-        url = product["url"]
-        print(f"\nTest case {idx+1}: {product['title']}")
-        print(f"URL: {url}")
-        
+        # Handle store selection
         try:
-            # Get the page content
-            response = requests.get(url, headers=headers)
-            if response.status_code != 200:
-                print(f"Failed to retrieve {url}, status code: {response.status_code}")
-                continue
+            print("Checking for store selection dialog...")
+            store_selector = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, '//button[contains(@data-test, "storeId-")]'))
+            )
+            print("Store selection dialog found, clicking...")
+            store_selector.click()
+            print("Selected store successfully")
+            time.sleep(1)  # Reduced wait time
+        except:
+            print("No store selection dialog detected")
+        
+        # Get total number of pages - with maximum limit
+        total_pages = min(get_total_pages(driver), max_pages)
+        print(f"Found {total_pages} pages to scrape (limited to {max_pages})")
+        
+        # Process each page using the Nao parameter for pagination
+        for page_num in range(1, total_pages + 1):
+            print(f"Processing page {page_num} of {total_pages}")
             
-            # Parse the HTML
-            soup = BeautifulSoup(response.text, 'html.parser')
+            # For the first page, we're already there
+            if page_num > 1:
+                # Calculate the Nao value based on items per page
+                nao_value = (page_num - 1) * items_per_page
+                
+                # Construct the URL with the Nao parameter
+                page_url = url
+                if '?' in page_url:
+                    if 'Nao=' in page_url:
+                        page_url = re.sub(r'Nao=\d+', f'Nao={nao_value}', page_url)
+                    else:
+                        page_url = f"{url}&Nao={nao_value}"
+                else:
+                    page_url = f"{url}?Nao={nao_value}"
+                
+                print(f"Navigating directly to page URL: {page_url}")
+                driver.get(page_url)
+                time.sleep(1)  # Reduced wait time
             
-            # Extract volume/weight information
-            volume_weight_data = extract_volume_weight(soup)
-            product['volume_weight'] = volume_weight_data
+            # Scroll down the page to trigger lazy loading
+            scroll_page(driver)
             
-            # Parse price
-            product['price_numeric'] = parse_price(product['price'])
+            # Extract products from current page
+            page_products = extract_products(driver)
             
-            # Print results
-            print("\nExtracted data:")
-            print(f"Volume/Weight: {volume_weight_data}")
-            print(f"Original Price: {product['price']}")
-            print(f"Numeric Price: {product['price_numeric']}")
+            if page_products:
+                # Add only unique products based on title
+                new_unique_count = 0
+                for product in page_products:
+                    if 'title' in product and product['title']:
+                        product_key = product['title'].strip()
+                        if product_key not in unique_products:
+                            # Add store information
+                            product['store'] = 'target'
+                            unique_products[product_key] = product
+                            all_products.append(product)
+                            new_unique_count += 1
+                
+                print(f"Extracted {len(page_products)} products from page {page_num}, {new_unique_count} unique")
+            else:
+                print(f"No products found on page {page_num}")
+                
+                # If we hit a page with no products, it might be the real end
+                if page_num > 1:
+                    print("Hit a page with no products, ending scrape")
+                    break
             
-            # Add to results
-            results.append(product)
-            
-        except Exception as e:
-            print(f"Error processing {url}: {e}")
+            # Save progress after each page
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(all_products, f, indent=2)
+        
+        # Save the final results
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(all_products, f, indent=2)
+        print(f"Completed scraping. Total unique products: {len(all_products)}")
+        
+    except Exception as e:
+        print(f"Error during scraping: {e}")
+        
+        # Save any products we've collected so far
+        if all_products:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(all_products, f, indent=2)
+            print(f"Saved {len(all_products)} products to {output_file} before error")
     
-    # Save to processed_results directory
-    output_path = processed_dir / "test_examples.json"
-    with open(output_path, 'w') as f:
-        json.dump(results, f, indent=2)
+    finally:
+        try:
+            driver.quit()
+        except:
+            pass
     
-    print(f"\nSaved test results to: {output_path}")
+    return all_products
 
-def process_all_products():
+def get_total_pages(driver):
     """
-    Process all JSON files, updating them with volume/weight and price information.
-    Save results to processed_results directory.
+    Extract the total number of pages from the pagination element with improved accuracy
     """
-    # Create processed_results directory if it doesn't exist
-    processed_dir = Path("processed_results")
-    processed_dir.mkdir(exist_ok=True)
-    
-    # Get all JSON files from the results directory
-    results_dir = Path("results")
-    json_files = list(results_dir.glob("*.json"))
-    
-    if not json_files:
-        print("No JSON files found in results directory!")
-        return
+    try:
+        # Wait for pagination element to load
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'div[data-test="pagination"]'))
+        )
         
-    print(f"Found {len(json_files)} JSON files to process")
-    
-    for file_path in json_files:
-        print(f"\nProcessing {file_path}...")
+        # First try JSON data in page source - more reliable
+        html_source = driver.page_source
+        total_pages_match = re.search(r'"totalPages":(\d+)', html_source)
+        if total_pages_match:
+            total = int(total_pages_match.group(1))
+            print(f"Found totalPages in page source: {total}")
+            return total
         
-        # Read the JSON file
-        with open(file_path, 'r') as f:
-            products = json.load(f)
+        # Look for "page X of Y" text
+        page_text = driver.find_elements(By.XPATH, '//*[contains(text(), "page") and contains(text(), "of")]')
+        for element in page_text:
+            text = element.text.strip()
+            page_match = re.search(r'page\s+\d+\s+of\s+(\d+)', text.lower())
+            if page_match:
+                return int(page_match.group(1))
         
-        # Process each product
-        for product in products:
-            url = product.get('url')
-            if not url:
-                continue
-                
-            print(f"Scraping: {url}")
+        # Check the last visible page number button
+        page_buttons = driver.find_elements(By.CSS_SELECTOR, 'div[data-test="pagination"] button')
+        max_page = 1
+        
+        for button in page_buttons:
+            button_text = button.text.strip()
+            if button_text.isdigit():
+                page_num = int(button_text)
+                max_page = max(max_page, page_num)
+        
+        if max_page > 1:
+            # Check if there's also a "next" button, which may indicate more pages
+            next_buttons = [b for b in page_buttons if b.get_attribute("aria-label") == "next page"]
+            if next_buttons:
+                # Return a reasonable default rather than a huge number
+                return 12  # Target typically has around 12 pages max
+            return max_page
             
-            try:
-                # Get the page content
-                response = requests.get(url, headers=headers)
-                if response.status_code != 200:
-                    print(f"Failed to retrieve {url}, status code: {response.status_code}")
-                    continue
-                
-                # Parse the HTML
-                soup = BeautifulSoup(response.text, 'html.parser')
-                
-                # Extract volume/weight information
-                volume_weight_data = extract_volume_weight(soup)
-                product['volume_weight'] = volume_weight_data
-                
-                # Parse price
-                if 'price' in product:
-                    product['price_numeric'] = parse_price(product['price'])
-                
-                # Add delay to be nice to the server
-                time.sleep(2)
-                
-            except Exception as e:
-                print(f"Error processing {url}: {e}")
+        # Default: single page
+        return 1
+            
+    except Exception as e:
+        print(f"Error getting total pages: {e}")
+        return 1  # Default to 1 page
+
+def scroll_page(driver):
+    """
+    More efficient page scrolling
+    """
+    try:
+        # Get the page height
+        last_height = driver.execute_script("return document.body.scrollHeight")
         
-        # Save the updated JSON to processed_results directory
-        output_path = processed_dir / file_path.name
-        with open(output_path, 'w') as f:
-            json.dump(products, f, indent=2)
+        # Faster scrolling with fewer pauses
+        scroll_positions = [0.25, 0.5, 0.75, 1.0]  # Scroll in 4 steps
         
-        print(f"Saved processed data to {output_path}")
+        for position in scroll_positions:
+            # Scroll to percentage of page
+            driver.execute_script(f"window.scrollTo(0, document.body.scrollHeight * {position});")
+            time.sleep(0.2)  # Short delay
+    except Exception as e:
+        print(f"Error during page scrolling: {e}")
+
+def extract_products(driver):
+    """
+    Extract product data from the current page - optimized version
+    """
+    products = []
+    
+    try:
+        # Try one reliable selector first before falling back to BeautifulSoup
+        try:
+            product_elements = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, 'div[data-test="@web/site-top-of-funnel/ProductCardWrapper"]'))
+            )
+        except TimeoutException:
+            print("Primary product selector not found, trying alternatives")
+        
+        # Get the page source and parse with BeautifulSoup
+        page_source = driver.page_source
+        soup = BeautifulSoup(page_source, 'html.parser')
+        
+        # Try different product container selectors in order of reliability
+        selectors = [
+            'div[data-test="@web/site-top-of-funnel/ProductCardWrapper"]',
+            'div[data-test="product-card"]', 
+            'li[data-test="groceries-product-card"]',
+            'div[class*="product-card"]',
+            'div[class*="ProductCard"]'
+        ]
+        
+        product_containers = []
+        for selector in selectors:
+            product_containers = soup.select(selector)
+            if product_containers:
+                print(f"Found {len(product_containers)} product containers using selector: {selector}")
+                break
+        
+        # Fallback: try to find product links
+        if not product_containers:
+            product_links = soup.select('a[href^="/p/"]')
+            for link in product_links:
+                parent = link.find_parent('div')
+                if parent and parent not in product_containers:
+                    product_containers.append(parent)
+            print(f"Found {len(product_containers)} product containers via product links")
+        
+        # Extract product data
+        for container in product_containers:
+            product = {}
+            
+            # Title
+            title_selectors = [
+                'a[data-test="product-title"] .styles_ndsTruncate__GRSDE',
+                '.styles_ndsTruncate__GRSDE',
+                '[class*="Truncate"]',
+                'h2, h3, h4',
+                'a[href*="/p/"]'
+            ]
+            
+            for selector in title_selectors:
+                title_elem = container.select_one(selector)
+                if title_elem:
+                    product['title'] = title_elem.get('title', '').strip() or title_elem.text.strip()
+                    break
+            
+            # Price
+            price_selectors = [
+                'span[data-test="current-price"]',
+                '[class*="price"]', 
+                '[class*="Price"]'
+            ]
+            
+            for selector in price_selectors:
+                price_elem = container.select_one(selector)
+                if price_elem:
+                    price_text = price_elem.text.strip()
+                    if '$' in price_text and any(c.isdigit() for c in price_text):
+                        product['price'] = price_text
+                        break
+            
+            # Get URL and TCIN
+            product_link = container.select_one('a[href*="/p/"]')
+            if product_link:
+                href = product_link.get('href', '')
+                product['url'] = 'https://www.target.com' + href if href.startswith('/') else href
+                
+                # Extract TCIN
+                tcin_match = re.search(r'/A-(\d+)', href)
+                if tcin_match:
+                    product['tcin'] = tcin_match.group(1)
+            
+            # Only add products with at least a title
+            if 'title' in product and product['title']:
+                products.append(product)
+                
+    except Exception as e:
+        print(f"Error extracting products: {e}")
+    
+    return products
 
 if __name__ == "__main__":
-    # Test with the provided examples
-    print("Testing with the example cases...")
-    test_examples()
+    # Simple command line input for search term
+    search_term = input("Enter search term (e.g., 'primer', 'foundation'): ")
     
-    # Ask user if they want to process all products
-    response = input("\nDo you want to process all products? (y/n): ")
-    if response.lower() == 'y':
-        process_all_products()
-    else:
-        print("Exiting without processing all products.")
+    # Construct search URL
+    search_url = f"https://www.target.com/s?searchTerm={search_term.replace(' ', '+')}"
+    
+    # Run the scraper
+    products = scrape_target_products(
+        url=search_url,
+        output_dir="results",
+        search_term=search_term,
+        max_pages=12
+    )
+    
+    print(f"Scraped {len(products)} Target products for '{search_term}'")
