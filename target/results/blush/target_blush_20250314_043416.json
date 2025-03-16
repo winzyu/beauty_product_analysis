@@ -1,0 +1,842 @@
+[
+  {
+    "title": "e.l.f. Halo Glow Blush Beauty Wand - 0.33 fl oz",
+    "price": "$9.00",
+    "url": "https://www.target.com/p/e-l-f-halo-glow-blush-beauty-wand-0-33-fl-oz/-/A-89407274?preselect=88301519#lnk=sametab",
+    "tcin": "89407274",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Camo Liquid Blush - 0.13 fl oz",
+    "price": "$7.00",
+    "url": "https://www.target.com/p/e-l-f-camo-liquid-blush-0-13-fl-oz/-/A-90598873?preselect=89229606#lnk=sametab",
+    "tcin": "90598873",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Powder Blush Palette Light - 0.47oz",
+    "price": "$9.00",
+    "url": "https://www.target.com/p/e-l-f-powder-blush-palette-light-0-47oz/-/A-16602655#lnk=sametab",
+    "tcin": "16602655",
+    "store": "target"
+  },
+  {
+    "title": "Wet n Wild Color Icon Blush - 0.21oz",
+    "price": "$3.29",
+    "url": "https://www.target.com/p/wet-n-wild-color-icon-blush-0-21oz/-/A-79407924?preselect=76727005#lnk=sametab",
+    "tcin": "79407924",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Blush Bright - 0.18oz",
+    "price": "$3.00",
+    "url": "https://www.target.com/p/e-l-f-blush-bright-0-18oz/-/A-79630289?preselect=52658594#lnk=sametab",
+    "tcin": "79630289",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Primer-Infused Matte Blush - 0.35oz",
+    "price": "$7.00",
+    "url": "https://www.target.com/p/e-l-f-primer-infused-blush-0-35oz/-/A-54023420?preselect=75570499#lnk=sametab",
+    "tcin": "54023420",
+    "store": "target"
+  },
+  {
+    "title": "NYX Professional Makeup Buttermelt Blush - 0.17oz",
+    "price": "$9.99",
+    "url": "https://www.target.com/p/nyx-professional-makeup-buttermelt-blush-0-17oz/-/A-91939881?preselect=90591942#lnk=sametab",
+    "tcin": "91939881",
+    "store": "target"
+  },
+  {
+    "title": "Milani Baked Blush - 0.12 oz",
+    "price": "$9.19",
+    "url": "https://www.target.com/p/milani-baked-blush-0-12-oz/-/A-80171897?preselect=76467206#lnk=sametab",
+    "tcin": "80171897",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Putty Blush - 0.35oz",
+    "price": "$7.00",
+    "url": "https://www.target.com/p/e-l-f-putty-blush-0-35oz/-/A-82246450?preselect=83714962#lnk=sametab",
+    "tcin": "82246450",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Murumuru Butter Matte Monoi Blush - Mauvey Mattes - 0.15oz",
+    "price": "$12.79",
+    "url": "https://www.target.com/p/physicians-formula-murumuru-butter-matte-monoi-blush-mauvey-mattes-0-15oz/-/A-83345914#lnk=sametab",
+    "tcin": "83345914",
+    "store": "target"
+  },
+  {
+    "title": "Milani Rose Powder Blush",
+    "price": "$8.99",
+    "url": "https://www.target.com/p/milani-rose-powder-blush/-/A-46787424?preselect=46786697#lnk=sametab",
+    "tcin": "46787424",
+    "store": "target"
+  },
+  {
+    "title": "MCoBeauty Glow Up PH Powder Blush - 0.16oz",
+    "price": "$8.99",
+    "url": "https://www.target.com/p/mcobeauty-glow-up-ph-powder-blush-0-16oz/-/A-94048833?preselect=93213240#lnk=sametab",
+    "tcin": "94048833",
+    "store": "target"
+  },
+  {
+    "title": "MCoBeauty Jelly Cheek & Lip Stick - 0.17oz",
+    "price": "$8.99",
+    "url": "https://www.target.com/p/mcobeauty-jelly-cheek-38-lip-stick-0-17oz/-/A-94048828?preselect=92704776#lnk=sametab",
+    "tcin": "94048828",
+    "store": "target"
+  },
+  {
+    "title": "Versed Shade Swipe Blush Stick - 0.19oz",
+    "price": "$14.99",
+    "url": "https://www.target.com/p/versed-shade-swipe-blush-stick-0-19oz/-/A-94414600?preselect=92585430#lnk=sametab",
+    "tcin": "94414600",
+    "store": "target"
+  },
+  {
+    "title": "MCoBeauty Super Glow Blush Drops - 1.01oz",
+    "price": "$10.99",
+    "url": "https://www.target.com/p/mcobeauty-super-glow-blush-drops-1-01oz/-/A-94048809?preselect=92680086#lnk=sametab",
+    "tcin": "94048809",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Murumuru Butter Blush - Strawberry Jam - 0.19oz",
+    "price": "$8.49",
+    "url": "https://www.target.com/p/physicians-formula-murumuru-butter-blush-strawberry-jam-0-19oz/-/A-88282620#lnk=sametab",
+    "tcin": "88282620",
+    "store": "target"
+  },
+  {
+    "title": "MCoBeauty Baby Face Multiuse Cream Stick - 0.17oz",
+    "price": "$9.99",
+    "url": "https://www.target.com/p/mcobeauty-baby-face-multiuse-cream-stick-0-17oz/-/A-94048846?preselect=92680067#lnk=sametab",
+    "tcin": "94048846",
+    "store": "target"
+  },
+  {
+    "title": "Benefit Cosmetics Benetint Liquid Lip Blush & Cheek Tint - Ulta Beauty",
+    "price": "$13.00 - $35.00",
+    "url": "https://www.target.com/p/benefit-cosmetics-liquid-lip-blush-tint-0-2-oz-ulta-beauty/-/A-90978238?preselect=86369907#lnk=sametab",
+    "tcin": "90978238",
+    "store": "target"
+  },
+  {
+    "title": "Pixi by Petra On-the-Glow Blush - 0.6oz",
+    "price": "$18.00",
+    "url": "https://www.target.com/p/pixi-by-petra-on-the-glow-blush-0-67oz/-/A-82010844?preselect=89198009#lnk=sametab",
+    "tcin": "82010844",
+    "store": "target"
+  },
+  {
+    "title": "MCoBeauty Cheek & Lip Stain 2-in-1 Liquid Tint - Rosy Red",
+    "price": "$8.99",
+    "url": "https://www.target.com/p/mcobeauty-cheek-38-lip-stain-2-in-1-liquid-tint-rosy-red/-/A-92680093#lnk=sametab",
+    "tcin": "92680093",
+    "store": "target"
+  },
+  {
+    "title": "ColourPop Liquid Blush - 0.3oz",
+    "price": "$10.00",
+    "url": "https://www.target.com/p/colourpop-liquid-blush-0-3oz/-/A-91618140?preselect=91385965#lnk=sametab",
+    "tcin": "91618140",
+    "store": "target"
+  },
+  {
+    "title": "L'Oreal\u00ae Paris True Match Super-Blendable Blush",
+    "price": "$9.99",
+    "url": "https://www.target.com/p/l-oreal-174-paris-true-match-super-blendable-blush/-/A-13669788?preselect=11658252#lnk=sametab",
+    "tcin": "13669788",
+    "store": "target"
+  },
+  {
+    "title": "Milani Cheek Kiss Cream Blush - 0.37 fl oz",
+    "price": "$9.99",
+    "url": "https://www.target.com/p/milani-cheek-kiss-cream-blush-0-37-fl-oz/-/A-81234421?preselect=80021419#lnk=sametab",
+    "tcin": "81234421",
+    "store": "target"
+  },
+  {
+    "title": "MCoBeauty Soft Matte Beauty Blush Wand - 0.4 fl oz",
+    "price": "$14.99",
+    "url": "https://www.target.com/p/mcobeauty-soft-matte-beauty-blush-wand-0-4-fl-oz/-/A-94048812?preselect=92680104#lnk=sametab",
+    "tcin": "94048812",
+    "store": "target"
+  },
+  {
+    "title": "Makeup Revolution Blusher Reloaded - 0.26oz",
+    "price": "$6.99",
+    "url": "https://www.target.com/p/makeup-revolution-blusher-reloaded-0-26oz/-/A-86698306?preselect=85824856#lnk=sametab",
+    "tcin": "86698306",
+    "store": "target"
+  },
+  {
+    "title": "Makeup Revolution Fast Base Blush Stick - 0.49oz",
+    "price": "$8.00",
+    "url": "https://www.target.com/p/makeup-revolution-fast-base-blush-stick-0-49oz/-/A-87929912?preselect=86740562#lnk=sametab",
+    "tcin": "87929912",
+    "store": "target"
+  },
+  {
+    "title": "tarte Tape Liquid Blush - 0.4 fl oz - Ulta Beauty",
+    "price": "$36.00",
+    "url": "https://www.target.com/p/tarte-tape-liquid-blush-0-4-fl-oz-ulta-beauty/-/A-89789857?preselect=88762290#lnk=sametab",
+    "tcin": "89789857",
+    "store": "target"
+  },
+  {
+    "title": "Makeup Revolution Superdewy Liquid Blusher - 0.5 fl oz",
+    "price": "$6.99",
+    "url": "https://www.target.com/p/makeup-revolution-superdewy-liquid-blusher-0-5-fl-oz/-/A-85990864?preselect=83387289#lnk=sametab",
+    "tcin": "85990864",
+    "store": "target"
+  },
+  {
+    "title": "L'Oreal Paris True Match Lumi Le Liquid Blush for Cheeks - 0.33 fl oz",
+    "price": "$11.99",
+    "url": "https://www.target.com/p/l-oreal-paris-true-match-lumi-le-liquid-blush-for-cheeks-0-33-fl-oz/-/A-92239995?preselect=90871605#lnk=sametab",
+    "tcin": "92239995",
+    "store": "target"
+  },
+  {
+    "title": "Makeup Revolution Vintage Lace Blush Palette - Pink - 0.18oz",
+    "price": "$12.00",
+    "url": "https://www.target.com/p/makeup-revolution-vintage-lace-blush-palette-pink-0-18oz/-/A-80365114#lnk=sametab",
+    "tcin": "80365114",
+    "store": "target"
+  },
+  {
+    "title": "bareMinerals Gen Nude Powder Blush - 0.21oz - Ulta Beauty",
+    "price": "$29.00",
+    "url": "https://www.target.com/p/bareminerals-gen-nude-powder-blush-0-21oz-ulta-beauty/-/A-87850901?preselect=86714277#lnk=sametab",
+    "tcin": "87850901",
+    "store": "target"
+  },
+  {
+    "title": "COVERGIRL TruBlend So Flushed High Pigment Blush - 0.33oz",
+    "price": "$6.69 - $8.99",
+    "url": "https://www.target.com/p/covergirl-trublend-so-flushed-high-pigment-blush-0-33oz/-/A-79685608?preselect=83470206#lnk=sametab",
+    "tcin": "79685608",
+    "store": "target"
+  },
+  {
+    "title": "Almay Color & Care Tint Stick - 0.25oz",
+    "price": "$10.49",
+    "url": "https://www.target.com/p/almay-color-care-tint-stick-0-25oz/-/A-94616887?preselect=92214051#lnk=sametab",
+    "tcin": "94616887",
+    "store": "target"
+  },
+  {
+    "title": "ColourPop Pressed Powder Blush - 0.21oz",
+    "price": "$12.00",
+    "url": "https://www.target.com/p/colourpop-pressed-powder-blush-0-21oz/-/A-90866785?preselect=89402284#lnk=sametab",
+    "tcin": "90866785",
+    "store": "target"
+  },
+  {
+    "title": "ColourPop Cheek Palette - 0.3oz",
+    "price": "$12.00",
+    "url": "https://www.target.com/p/colourpop-cheek-palette-0-3oz/-/A-92536413?preselect=91385976#lnk=sametab",
+    "tcin": "92536413",
+    "store": "target"
+  },
+  {
+    "title": "Revlon Photoready Insta-Blush Stick - Sheer, Blendable Blush Stick",
+    "price": "$12.39",
+    "url": "https://www.target.com/p/revlon-photoready-insta-blush-stick-sheer-blendable-blush-stick/-/A-51241461?preselect=51083797#lnk=sametab",
+    "tcin": "51241461",
+    "store": "target"
+  },
+  {
+    "title": "ColourPop Instant Crush Lip & Cheek Balm",
+    "price": "$10.00",
+    "url": "https://www.target.com/p/colourpop-instant-crush-lip-cheek-balm/-/A-94601815?preselect=92328257#lnk=sametab",
+    "tcin": "94601815",
+    "store": "target"
+  },
+  {
+    "title": "Wet n Wild MegaGlo Makeup Stick - 0.21oz",
+    "price": "$3.99",
+    "url": "https://www.target.com/p/wet-n-wild-megaglo-makeup-stick-0-21oz/-/A-88413217?preselect=86754930#lnk=sametab",
+    "tcin": "88413217",
+    "store": "target"
+  },
+  {
+    "title": "Maybelline Cheek Heat Blush - 0.27 fl oz",
+    "price": "$6.19",
+    "url": "https://www.target.com/p/maybelline-cheek-heat-blush-0-27-fl-oz/-/A-79364377?preselect=76466192#lnk=sametab",
+    "tcin": "79364377",
+    "store": "target"
+  },
+  {
+    "title": "Benefit Cosmetics WANDERful World Silky-Soft Powder Blush - Ulta Beauty",
+    "price": "$18.00 - $33.00",
+    "url": "https://www.target.com/p/benefit-cosmetics-wanderful-world-silky-soft-powder-blush-ulta-beauty/-/A-86321731?preselect=85728980#lnk=sametab",
+    "tcin": "86321731",
+    "store": "target"
+  },
+  {
+    "title": "ColourPop Blush Stix - 0.28oz",
+    "price": "$10.00",
+    "url": "https://www.target.com/p/colourpop-blush-stix-0-28oz/-/A-90866739?preselect=89402302#lnk=sametab",
+    "tcin": "90866739",
+    "store": "target"
+  },
+  {
+    "title": "Revlon Glimmer Blush Drops - Liquid Cheek Color - 0.32 fl oz",
+    "price": "$8.99",
+    "url": "https://www.target.com/p/revlon-glimmer-blush-drops-0-32-fl-oz/-/A-94048470?preselect=92447892#lnk=sametab",
+    "tcin": "94048470",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Camo CC Cream - 1.05oz",
+    "price": "$10.91 - $15.00",
+    "url": "https://www.target.com/p/e-l-f-camo-cc-cream-1-05oz/-/A-81912628?preselect=80160202#lnk=sametab",
+    "tcin": "81912628",
+    "store": "target"
+  },
+  {
+    "title": "COVERGIRL Outlast All-Day Lip Color withTopcoat - 0.077 fl oz",
+    "price": "$7.38 - $8.69",
+    "url": "https://www.target.com/p/covergirl-outlast-all-day-lip-color-withtopcoat-0-077-fl-oz/-/A-53732947?preselect=15314653#lnk=sametab",
+    "tcin": "53732947",
+    "store": "target"
+  },
+  {
+    "title": "MAC Sheertone Blush - 0.21oz - Ulta Beauty",
+    "price": "$30.00",
+    "url": "https://www.target.com/p/mac-sheertone-blush-0-21oz-ulta-beauty/-/A-88808203?preselect=87914037#lnk=sametab",
+    "tcin": "88808203",
+    "store": "target"
+  },
+  {
+    "title": "Maybelline Sunkisser Multi-use Blendable Liquid Blush - 0.23 fl oz",
+    "price": "$9.99",
+    "url": "https://www.target.com/p/maybelline-sun-kisser-blush-0-23-fl-oz/-/A-92239213?preselect=92213947#lnk=sametab",
+    "tcin": "92239213",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Powder Palette Mineral Glow Pearls Blush, Rose Pearl, 0.15 oz.",
+    "price": "$17.21",
+    "url": "https://www.target.com/p/physicians-formula-powder-palette-mineral-glow-pearls-blush-rose-pearl-0-15-oz/-/A-93666689#lnk=sametab",
+    "tcin": "93666689",
+    "store": "target"
+  },
+  {
+    "title": "Pixi By Petra Beauty Blush Duo + Kabuki Brush - Peach Honey - 0.36oz",
+    "price": "$18.00",
+    "url": "https://www.target.com/p/pixi-by-petra-beauty-blush-duo-kabuki-brush-peach-honey-0-36oz/-/A-51166488#lnk=sametab",
+    "tcin": "51166488",
+    "store": "target"
+  },
+  {
+    "title": "Wet n Wild Color Icon Blush - Bed of Roses - 0.21oz",
+    "price": "$3.29",
+    "url": "https://www.target.com/p/wet-n-wild-color-icon-blush-bed-of-roses-0-21oz/-/A-86754940#lnk=sametab",
+    "tcin": "86754940",
+    "store": "target"
+  },
+  {
+    "title": "Ulta Beauty Collection Flushed Blush - 0.12oz - Ulta Beauty",
+    "price": "$11.00",
+    "url": "https://www.target.com/p/ulta-beauty-collection-flushed-blush-0-12oz-ulta-beauty/-/A-93145349?preselect=91382502#lnk=sametab",
+    "tcin": "93145349",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Rose All Day Petal Glow - Soft Petal - 0.32oz",
+    "price": "$9.79",
+    "url": "https://www.target.com/p/physicians-formula-rose-all-day-petal-glow-soft-petal-0-32oz/-/A-76499883#lnk=sametab",
+    "tcin": "76499883",
+    "store": "target"
+  },
+  {
+    "title": "Milani Cheek Kiss Liquid Blush + Glow - 0.33 fl oz",
+    "price": "$10.99",
+    "url": "https://www.target.com/p/milani-cheek-kiss-liquid-blush-glow-0-33-fl-oz/-/A-92489565?preselect=92173619#lnk=sametab",
+    "tcin": "92489565",
+    "store": "target"
+  },
+  {
+    "title": "Makeup Revolution Beam Bright Blush - 0.09oz",
+    "price": "$9.99",
+    "url": "https://www.target.com/p/makeup-revolution-beam-bright-blush-0-09oz/-/A-94421485?preselect=93859778#lnk=sametab",
+    "tcin": "94421485",
+    "store": "target"
+  },
+  {
+    "title": "Wet n Wild Mega Glow Blushlighter - 0.35oz",
+    "price": "$5.49",
+    "url": "https://www.target.com/p/wet-n-wild-mega-glow-blushlighter-0-35oz/-/A-79407925?preselect=76726961#lnk=sametab",
+    "tcin": "79407925",
+    "store": "target"
+  },
+  {
+    "title": "L.A. Girl Duo Cushion Blush/Bronzer - Pink",
+    "price": "$7.99",
+    "url": "https://www.target.com/p/l-a-girl-duo-cushion-blush-bronzer-pink/-/A-92296151#lnk=sametab",
+    "tcin": "92296151",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Powder Palette, Multi-Colored Blush, 3537 Blushing Berry, 0.17 oz (5 g)",
+    "price": "$17.21",
+    "url": "https://www.target.com/p/physicians-formula-powder-palette-multi-colored-blush-3537-blushing-berry-0-17-oz-5-g/-/A-93666712#lnk=sametab",
+    "tcin": "93666712",
+    "store": "target"
+  },
+  {
+    "title": "Almay Color & Care Tint Stick - Cheek & Lip Color - 200 Coral Flush - 0.25oz",
+    "price": "$10.49",
+    "url": "https://www.target.com/p/almay-color-38-care-tint-stick-cheek-38-lip-color-200-coral-flush-0-25oz/-/A-92214042#lnk=sametab",
+    "tcin": "92214042",
+    "store": "target"
+  },
+  {
+    "title": "MAC Mineralize Blush - 0.1oz - Ulta Beauty",
+    "price": "$34.00",
+    "url": "https://www.target.com/p/mac-mineralize-blush-0-1oz-ulta-beauty/-/A-83490282?preselect=82609399#lnk=sametab",
+    "tcin": "83490282",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Powder Palette, Multi-Colored Blush, 2465 Blushing Peach, 0.17 oz (5 g)",
+    "price": "$17.21",
+    "url": "https://www.target.com/p/physicians-formula-powder-palette-multi-colored-blush-2465-blushing-peach-0-17-oz-5-g/-/A-93666687#lnk=sametab",
+    "tcin": "93666687",
+    "store": "target"
+  },
+  {
+    "title": "Thread Transp Horm It Color Changing Blush - 0.43oz",
+    "price": "$7.99",
+    "url": "https://www.target.com/p/thread-transp-horm-it-color-changing-blush-0-43oz/-/A-89396843#lnk=sametab",
+    "tcin": "89396843",
+    "store": "target"
+  },
+  {
+    "title": "Estee Lauder Pure Color Envy Sculpting Blush, 220 Pink Kiss, 0.25 oz",
+    "price": "$36.96",
+    "url": "https://www.target.com/p/estee-lauder-pure-color-envy-sculpting-blush-220-pink-kiss-0-25-oz/-/A-1001275050#lnk=sametab",
+    "tcin": "1001275050",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Powder Palette, Multi-Colored Blush, 2464 Blushing Natural, 0.17 oz (5 g)",
+    "price": "$17.21",
+    "url": "https://www.target.com/p/physicians-formula-powder-palette-multi-colored-blush-2464-blushing-natural-0-17-oz-5-g/-/A-93666714#lnk=sametab",
+    "tcin": "93666714",
+    "store": "target"
+  },
+  {
+    "title": "Almay Healthy Hue Blush - 0.17oz",
+    "price": "$7.49 - $10.99",
+    "url": "https://www.target.com/p/almay-healthy-hue-blush-0-17oz/-/A-78376452?preselect=76524031#lnk=sametab",
+    "tcin": "78376452",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Lash XTNDR Tubing Mascara - 0.25oz",
+    "price": "$7.00",
+    "url": "https://www.target.com/p/e-l-f-lash-xtndr-tubing-mascara-0-25oz/-/A-89381074?preselect=89229615#lnk=sametab",
+    "tcin": "89381074",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Flawless Finish Foundation - 0.68 fl oz",
+    "price": "$6.00",
+    "url": "https://www.target.com/p/e-l-f-flawless-finish-foundation-0-68-fl-oz/-/A-78663674?preselect=75570513#lnk=sametab",
+    "tcin": "78663674",
+    "store": "target"
+  },
+  {
+    "title": "Winky Lux Cheeky Rose Blush - 0.17oz",
+    "price": "$20.00",
+    "url": "https://www.target.com/p/winky-lux-cheeky-rose-blush-0-16oz/-/A-82174588?preselect=80120061#lnk=sametab",
+    "tcin": "82174588",
+    "store": "target"
+  },
+  {
+    "title": "Pacifica Mood Glow Color Shifting Blush Balm - 0.4 fl oz",
+    "price": "$17.99",
+    "url": "https://www.target.com/p/pacifica-mood-glow-color-shifting-blush-balm-0-4-fl-oz/-/A-89222582#lnk=sametab",
+    "tcin": "89222582",
+    "store": "target"
+  },
+  {
+    "title": "Winky Lux Cheeky Rose Liquid Sculpt Bronzer - 0.21 fl oz",
+    "price": "$18.99",
+    "url": "https://www.target.com/p/winky-lux-cheeky-rose-liquid-sculpt-bronzer-0-21-fl-oz/-/A-94628672?preselect=92705187#lnk=sametab",
+    "tcin": "94628672",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Mineral Wear Diamond Filler Lip & Cheek Color - 0.24 fl oz",
+    "price": "$10.99",
+    "url": "https://www.target.com/p/physicians-formula-mineral-wear-diamond-filler-lip-cheek-color-0-24-fl-oz/-/A-91363529?preselect=89286058#lnk=sametab",
+    "tcin": "91363529",
+    "store": "target"
+  },
+  {
+    "title": "Black Radiance Artisan Color Baked Blush - 0.1oz",
+    "price": "$4.99",
+    "url": "https://www.target.com/p/black-radiance-artisan-color-baked-blush-0-1oz/-/A-14990300?preselect=14986483#lnk=sametab",
+    "tcin": "14990300",
+    "store": "target"
+  },
+  {
+    "title": "NYX Professional Makeup Wonder Stick Blush - 0.28oz",
+    "price": "$13.99",
+    "url": "https://www.target.com/p/nyx-professional-makeup-wonder-stick-blush-0-28oz/-/A-85065535?preselect=84859448#lnk=sametab",
+    "tcin": "85065535",
+    "store": "target"
+  },
+  {
+    "title": "The Lip Bar Fresh Glow Cream Cheek Liquid Blush - 0.17oz",
+    "price": "$14.99",
+    "url": "https://www.target.com/p/the-lip-bar-fresh-glow-cream-cheek-liquid-blush-0-17oz/-/A-91379971?preselect=89396844#lnk=sametab",
+    "tcin": "91379971",
+    "store": "target"
+  },
+  {
+    "title": "Stila Convertible Color for Lip & Cheeks - 0.05 fl oz - Ulta Beauty",
+    "price": "$25.00",
+    "url": "https://www.target.com/p/stila-convertible-color-for-lip-cheeks-0-05-fl-oz-ulta-beauty/-/A-83471770?preselect=82518981#lnk=sametab",
+    "tcin": "83471770",
+    "store": "target"
+  },
+  {
+    "title": "Too Faced Cloud Crush Blurring Blush - 0.17oz - Ulta Beauty",
+    "price": "$31.00",
+    "url": "https://www.target.com/p/too-faced-cloud-crush-blurring-blush-0-17oz-ulta-beauty/-/A-90942360?preselect=88762329#lnk=sametab",
+    "tcin": "90942360",
+    "store": "target"
+  },
+  {
+    "title": "Thread Blend It Blush Multistick - 0.15oz",
+    "price": "$8.00",
+    "url": "https://www.target.com/p/thread-blend-it-blush-multistick-0-15oz/-/A-85863542?preselect=83871366#lnk=sametab",
+    "tcin": "85863542",
+    "store": "target"
+  },
+  {
+    "title": "SHANY Paraben Free HD Liquid Blush",
+    "price": "$9.98",
+    "url": "https://www.target.com/p/shany-paraben-free-hd-liquid-blush/-/A-84044950?preselect=84044956#lnk=sametab",
+    "tcin": "84044950",
+    "store": "target"
+  },
+  {
+    "title": "Morphe Hot Shot Blush Drop - 0.5 fl oz - Ulta Beauty",
+    "price": "$14.00",
+    "url": "https://www.target.com/p/morphe-hot-shot-blush-drop-1-fl-oz-ulta-beauty/-/A-91547325?preselect=91127517#lnk=sametab",
+    "tcin": "91547325",
+    "store": "target"
+  },
+  {
+    "title": "Revlon Illuminance Dewy Finish Gel Serum Blush - 0.37 fl oz",
+    "price": "$9.85 - $9.89",
+    "url": "https://www.target.com/p/revlon-illuminance-dewy-finish-gel-serum-blush-0-37-fl-oz/-/A-91340005?preselect=89826447#lnk=sametab",
+    "tcin": "91340005",
+    "store": "target"
+  },
+  {
+    "title": "LUNA MAGIC Compact Pressed Blush",
+    "price": "$7.99",
+    "url": "https://www.target.com/p/luna-magic-compact-pressed-blush/-/A-85689856?preselect=84070225#lnk=sametab",
+    "tcin": "85689856",
+    "store": "target"
+  },
+  {
+    "title": "Makeup Revolution x Mean Girls on Wednesdays We Wear Cream Blush - 0.18oz",
+    "price": "$12.00",
+    "url": "https://www.target.com/p/makeup-revolution-x-mean-girls-on-wednesdays-we-wear-cream-blush-0-18oz/-/A-91766682#lnk=sametab",
+    "tcin": "91766682",
+    "store": "target"
+  },
+  {
+    "title": "Well People Superpowder Blush - 0.17oz",
+    "price": "$18.00",
+    "url": "https://www.target.com/p/well-people-superpowder-blush-0-17oz/-/A-88570944?preselect=87115264#lnk=sametab",
+    "tcin": "88570944",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Murumuru Butter Blush Makeup Powder, Saucy Mauve, Dermatologist Approved, Vegan",
+    "price": "$18.03",
+    "url": "https://www.target.com/p/physicians-formula-murumuru-butter-blush-makeup-powder-saucy-mauve-dermatologist-approved-vegan/-/A-93666743#lnk=sametab",
+    "tcin": "93666743",
+    "store": "target"
+  },
+  {
+    "title": "MAC Strobe Beam Liquid Blush - Ulta Beauty",
+    "price": "$30.00",
+    "url": "https://www.target.com/p/mac-strobe-beam-liquid-blush-ulta-beauty/-/A-94658174?preselect=94215045#lnk=sametab",
+    "tcin": "94658174",
+    "store": "target"
+  },
+  {
+    "title": "Pacifica Fluffy Blush - 0.28oz",
+    "price": "$5.49 - $10.99",
+    "url": "https://www.target.com/p/pacifica-fluffy-blush-0-28oz/-/A-86054696?preselect=83346023#lnk=sametab",
+    "tcin": "86054696",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Luminous Putty Blush - 0.35oz",
+    "price": "$7.00",
+    "url": "https://www.target.com/p/e-l-f-luminous-putty-blush-0-35oz/-/A-88685941?preselect=86754564#lnk=sametab",
+    "tcin": "88685941",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Putty Primer - 0.74oz",
+    "price": "$10.00",
+    "url": "https://www.target.com/p/e-l-f-putty-primer-0-74oz/-/A-81177672?preselect=76198655#lnk=sametab",
+    "tcin": "81177672",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Prime & Stay Finishing Face Powder Beige .17oz",
+    "price": "$4.00",
+    "url": "https://www.target.com/p/e-l-f-prime-stay-finishing-face-powder-beige-17oz/-/A-52292160?preselect=51246959#lnk=sametab",
+    "tcin": "52292160",
+    "store": "target"
+  },
+  {
+    "title": "L.A. Girl Blush Palette - 4.6oz",
+    "price": "$9.99",
+    "url": "https://www.target.com/p/l-a-girl-blush-palette-4-6oz/-/A-78259507?preselect=76500994#lnk=sametab",
+    "tcin": "78259507",
+    "store": "target"
+  },
+  {
+    "title": "Ulta Beauty Collection Flushed Blush - 0.13oz - Ulta Beauty",
+    "price": "$10.00",
+    "url": "https://www.target.com/p/ulta-beauty-collection-flushed-blush-0-13oz-ulta-beauty/-/A-83489450?preselect=82609400#lnk=sametab",
+    "tcin": "83489450",
+    "store": "target"
+  },
+  {
+    "title": "Charlotte Tilbury Pillow Talk Matte Beauty Blush Wand, 0.4 oz",
+    "price": "$42.50",
+    "url": "https://www.target.com/p/charlotte-tilbury-pillow-talk-matte-beauty-blush-wand-0-4-oz/-/A-1002252110#lnk=sametab",
+    "tcin": "1002252110",
+    "store": "target"
+  },
+  {
+    "title": "NUDESTIX Matte + Glow Core - 0.21oz - Ulta Beauty",
+    "price": "$30.00",
+    "url": "https://www.target.com/p/nudestix-matte-glow-core-0-21oz-ulta-beauty/-/A-91367836?preselect=90022131#lnk=sametab",
+    "tcin": "91367836",
+    "store": "target"
+  },
+  {
+    "title": "Makeup Revolution Cheek Lift Palette - 0.39oz",
+    "price": "$10.00",
+    "url": "https://www.target.com/p/makeup-revolution-cheek-lift-palette/-/A-92239688?preselect=91467767#lnk=sametab",
+    "tcin": "92239688",
+    "store": "target"
+  },
+  {
+    "title": "Lumene Invisible Illumination Liquid Blush Bright Bloom - 0.5 fl oz",
+    "price": "$29.99",
+    "url": "https://www.target.com/p/lumene-invisible-illumination-liquid-blush-bright-bloom-0-5-fl-oz/-/A-92502401#lnk=sametab",
+    "tcin": "92502401",
+    "store": "target"
+  },
+  {
+    "title": "Black Opal Blush Stick - 0.24oz",
+    "price": "$16.49",
+    "url": "https://www.target.com/p/black-opal-blush-stick-0-24oz/-/A-94633741?preselect=93253933#lnk=sametab",
+    "tcin": "94633741",
+    "store": "target"
+  },
+  {
+    "title": "Live Tinted Hueglow Crush Blush - 0.3oz - Ulta Beauty",
+    "price": "$22.00",
+    "url": "https://www.target.com/p/live-tinted-hueglow-crush-blush-0-3oz-ulta-beauty/-/A-91928303?preselect=91928305#lnk=sametab",
+    "tcin": "91928303",
+    "store": "target"
+  },
+  {
+    "title": "Makeup Revolution Bright Light Blush Drops - 0.77 fl oz - Rosie Pink",
+    "price": "$12.00",
+    "url": "https://www.target.com/p/makeup-revolution-bright-light-blush-drops-0-78oz-pink-rosie/-/A-91467639#lnk=sametab",
+    "tcin": "91467639",
+    "store": "target"
+  },
+  {
+    "title": "SHANY Paraben Free Powder Blush",
+    "price": "$9.95",
+    "url": "https://www.target.com/p/shany-paraben-free-powder-blush/-/A-84256941?preselect=84256948#lnk=sametab",
+    "tcin": "84256941",
+    "store": "target"
+  },
+  {
+    "title": "Anastasia Beverly Hills Blurring Serum Blush - 0.32oz - Ulta Beauty",
+    "price": "$25.00",
+    "url": "https://www.target.com/p/anastasia-beverly-hills-blurring-serum-blush-0-32oz-ulta-beauty/-/A-91859476?preselect=91096282#lnk=sametab",
+    "tcin": "91859476",
+    "store": "target"
+  },
+  {
+    "title": "L.A. Girl Cream Blush - 0.27 fl oz",
+    "price": "$5.99",
+    "url": "https://www.target.com/p/l-a-girl-cream-blush-0-27-fl-oz/-/A-88570943?preselect=86754937#lnk=sametab",
+    "tcin": "88570943",
+    "store": "target"
+  },
+  {
+    "title": "Lumene Invisible Illumination Liquid Blush Pink Blossom - 0.5 fl oz",
+    "price": "$29.99",
+    "url": "https://www.target.com/p/lumene-invisible-illumination-liquid-blush-pink-blossom-0-5-fl-oz/-/A-92502390#lnk=sametab",
+    "tcin": "92502390",
+    "store": "target"
+  },
+  {
+    "title": "Laura Mercier Blush Color Infusion, Chai, 0.2 oz",
+    "price": "$31.45",
+    "url": "https://www.target.com/p/laura-mercier-blush-color-infusion-chai-0-2-oz/-/A-1002221086#lnk=sametab",
+    "tcin": "1002221086",
+    "store": "target"
+  },
+  {
+    "title": "Zuzu Luxe Blush - 0.01oz",
+    "price": "$24.99",
+    "url": "https://www.target.com/p/zuzu-luxe-blush-0-01oz/-/A-50727481?preselect=50168115#lnk=sametab",
+    "tcin": "50727481",
+    "store": "target"
+  },
+  {
+    "title": "Too Cool For School  - Artclass by Rodin 3 Color Layering Blusher",
+    "price": "$21.00",
+    "url": "https://www.target.com/p/too-cool-for-school-artclass-by-rodin-3-color-layering-blusher/-/A-87620162?preselect=90866967#lnk=sametab",
+    "tcin": "87620162",
+    "store": "target"
+  },
+  {
+    "title": "Smashbox Halo Color Tint Blush - 0.34 fl oz - Ulta Beauty",
+    "price": "$28.00",
+    "url": "https://www.target.com/p/smashbox-halo-color-tint-blush-0-34-fl-oz-ulta-beauty/-/A-87852674?preselect=86195492#lnk=sametab",
+    "tcin": "87852674",
+    "store": "target"
+  },
+  {
+    "title": "jane iredale PurePressed Blush Sheer Honey 0.11 oz",
+    "price": "$28.80",
+    "url": "https://www.target.com/p/jane-iredale-purepressed-blush-sheer-honey-0-11-oz/-/A-87370996#lnk=sametab",
+    "tcin": "87370996",
+    "store": "target"
+  },
+  {
+    "title": "Sigma Beauty Powder Blush",
+    "price": "$35.00",
+    "url": "https://www.target.com/p/sigma-beauty-powder-blush/-/A-91190986?preselect=90573327#lnk=sametab",
+    "tcin": "91190986",
+    "store": "target"
+  },
+  {
+    "title": "Honeybee Gardens MultiStick",
+    "price": "$16.99",
+    "url": "https://www.target.com/p/honeybee-gardens-multistick/-/A-90928123?preselect=90928128#lnk=sametab",
+    "tcin": "90928123",
+    "store": "target"
+  },
+  {
+    "title": "Sigma Beauty Cream Blush",
+    "price": "$34.00",
+    "url": "https://www.target.com/p/sigma-beauty-cream-blush/-/A-91190989?preselect=90573331#lnk=sametab",
+    "tcin": "91190989",
+    "store": "target"
+  },
+  {
+    "title": "e.l.f. Need It Eyeshadow Palette - Nude - 0.49oz",
+    "price": "$10.00",
+    "url": "https://www.target.com/p/e-l-f-need-it-eyeshadow-palette-nude-0-49oz/-/A-52654224#lnk=sametab",
+    "tcin": "52654224",
+    "store": "target"
+  },
+  {
+    "title": "ColourPop Bronze Stix - 0.28oz",
+    "price": "$10.00",
+    "url": "https://www.target.com/p/colourpop-bronze-stix-0-28oz/-/A-90866740?preselect=89444144#lnk=sametab",
+    "tcin": "90866740",
+    "store": "target"
+  },
+  {
+    "title": "jane iredale PurePressed Blush Sunset 0.11 oz",
+    "price": "$28.80",
+    "url": "https://www.target.com/p/jane-iredale-purepressed-blush-sunset-0-11-oz/-/A-89837963#lnk=sametab",
+    "tcin": "89837963",
+    "store": "target"
+  },
+  {
+    "title": "Smashbox Women's SBX RATED Hot Stx Blush Stick - 0.5oz - Ulta Beauty",
+    "price": "$24.00",
+    "url": "https://www.target.com/p/smashbox-women-s-sbx-rated-hot-stx-blush-stick-0-5oz-ulta-beauty/-/A-94658173?preselect=94270020#lnk=sametab",
+    "tcin": "94658173",
+    "store": "target"
+  },
+  {
+    "title": "Honeybee Gardens Complexion Perfecting Maracuja Mineral Blush",
+    "price": "$16.99",
+    "url": "https://www.target.com/p/honeybee-gardens-complexion-perfecting-maracuja-mineral-blush/-/A-84793170?preselect=84793174#lnk=sametab",
+    "tcin": "84793170",
+    "store": "target"
+  },
+  {
+    "title": "Color Cassette Liquid Blush + Lip",
+    "price": "$20.00",
+    "url": "https://www.target.com/p/color-cassette-liquid-blush-lip/-/A-93700577?preselect=93700578#lnk=sametab",
+    "tcin": "93700577",
+    "store": "target"
+  },
+  {
+    "title": "Jason Wu Beauty Blush - 0.5oz",
+    "price": "$15.69 - $18.99",
+    "url": "https://www.target.com/p/jason-wu-beauty-blush-0-5oz/-/A-83886889?preselect=83368322#lnk=sametab",
+    "tcin": "83886889",
+    "store": "target"
+  },
+  {
+    "title": "Laura Mercier Women Long-Lasting Blush Colour Infusion # Strawberry 6g/0.2oz",
+    "price": "$79.99",
+    "url": "https://www.target.com/p/laura-mercier-women-long-lasting-blush-colour-infusion-strawberry-6g-0-2oz/-/A-1002219433#lnk=sametab",
+    "tcin": "1002219433",
+    "store": "target"
+  },
+  {
+    "title": "Cl\u00e9 de Peau Beaut\u00e9 Women Moisturizing Radiant Cream Blush 1 Cranberry 0.21oz",
+    "price": "$74.99",
+    "url": "https://www.target.com/p/cl-de-peau-beaut-women-moisturizing-radiant-cream-blush-1-cranberry-0-21oz/-/A-1002219434#lnk=sametab",
+    "tcin": "1002219434",
+    "store": "target"
+  },
+  {
+    "title": "Physicians Formula Murumuru Butter Blush, 6811 Vintage Rouge, 0.26 oz (7.5 g)",
+    "price": "$18.03",
+    "url": "https://www.target.com/p/physicians-formula-murumuru-butter-blush-6811-vintage-rouge-0-26-oz-7-5-g/-/A-93666700#lnk=sametab",
+    "tcin": "93666700",
+    "store": "target"
+  },
+  {
+    "title": "Blusher Lumiere - Bizar Bronze by Make-Up Studio for Women - 0.06 oz Blush",
+    "price": "$17.40",
+    "url": "https://www.target.com/p/blusher-lumiere-bizar-bronze-by-make-up-studio-for-women-0-06-oz-blush/-/A-90204098#lnk=sametab",
+    "tcin": "90204098",
+    "store": "target"
+  },
+  {
+    "title": "Laura Geller Baked Blush-n-Brighten Pink Buttercream 0.16 oz",
+    "price": "$28.35",
+    "url": "https://www.target.com/p/laura-geller-baked-blush-n-brighten-pink-buttercream-0-16-oz/-/A-84926914#lnk=sametab",
+    "tcin": "84926914",
+    "store": "target"
+  }
+]
