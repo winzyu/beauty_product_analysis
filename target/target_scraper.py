@@ -6,95 +6,114 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 from bs4 import BeautifulSoup
 import re
-import argparse
 
-def scrape_target_products(url, output_dir="results", search_term="", items_per_page=24, max_pages=12):
-    """
-    Scrape products from Target using URL-based pagination with the Nao parameter
-    """
-    # Create output directory
-    os.makedirs(output_dir, exist_ok=True)
-    
-    # Set output filename based on search term
-    timestamp = time.strftime("%Y%m%d_%H%M%S")
-    if not search_term:
-        search_term = "target_products"
-    output_file = os.path.join(output_dir, f"target_{search_term.replace(' ', '_')}_{timestamp}.json")
-    print(f"Starting scrape for URL: {url}")
-    
-    # Configure Chrome options
+def set_davis_target_store(search_term):
     chrome_options = Options()
     chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    
-    # Disable WebGL to avoid deprecation warnings
     chrome_options.add_argument("--disable-webgl")
-    
-    # Initialize the driver
     driver = webdriver.Chrome(options=chrome_options)
-    driver.set_page_load_timeout(30)
+    
+    url = f"https://www.target.com/s?searchTerm={search_term.replace(' ', '+')}"
+    driver.get(url)
+    time.sleep(2)
+    
+    try:
+        # Click store selector button
+        store_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[data-test="@web/StoreName/Button"]'))
+        )
+        store_button.click()
+        print("Clicked store selector button")
+        
+        # Enter Davis zip code
+        zip_input = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "zip-or-city-state"))
+        )
+        zip_input.clear()
+        zip_input.send_keys("95616")
+        
+        # Click "Look up" button
+        lookup_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//button[text()="Look up"]'))
+        )
+        lookup_button.click()
+        print("Clicked 'Look up' button")
+        time.sleep(3)
+        
+        # Find and click the Davis store (not just the radio button)
+        davis_store = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//h4[contains(text(), "Davis")]'))
+        )
+        davis_store.click()
+        print("Clicked on Davis store")
+        time.sleep(1)
+        
+        # Click "Shop this store" button
+        shop_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[data-test="@web/StoreMenu/ShopThisStoreButton"]'))
+        )
+        shop_button.click()
+        print("Clicked 'Shop this store'")
+        
+        time.sleep(3)
+        return driver
+        
+    except Exception as e:
+        print(f"Error setting Davis store: {e}")
+        return driver
+
+def scrape_target_products(search_term, max_pages=12):
+    """
+    Scrape products from Target.com for a given search term
+    """
+    # Create output directory
+    output_dir = "results"
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Set output filename
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    output_file = os.path.join(output_dir, f"target_{search_term.replace(' ', '_')}_{timestamp}.json")
+    
+    print(f"Starting scrape for: {search_term}")
+    
+    # Initialize driver with store selection
+    driver = set_davis_target_store(search_term)
     
     all_products = []
     unique_products = {}
     
     try:
-        # Navigate to the URL
-        print(f"Loading URL: {url}")
-        driver.get(url)
+        # Get total number of pages
+        total_pages = get_page_count(driver)
+        total_pages = min(total_pages, max_pages)
+        print(f"Found {total_pages} pages to scrape")
         
-        # Handle store selection
-        try:
-            print("Checking for store selection dialog...")
-            store_selector = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located((By.XPATH, '//button[contains(@data-test, "storeId-")]'))
-            )
-            print("Store selection dialog found, clicking...")
-            store_selector.click()
-            print("Selected store successfully")
-            time.sleep(1)  # Reduced wait time
-        except:
-            print("No store selection dialog detected")
-        
-        # Get total number of pages - with maximum limit
-        total_pages = min(get_total_pages(driver), max_pages)
-        print(f"Found {total_pages} pages to scrape (limited to {max_pages})")
-        
-        # Process each page using the Nao parameter for pagination
+        # Process each page
         for page_num in range(1, total_pages + 1):
             print(f"Processing page {page_num} of {total_pages}")
             
-            # For the first page, we're already there
+            # For pages after first, navigate with Nao parameter
             if page_num > 1:
-                # Calculate the Nao value based on items per page
-                nao_value = (page_num - 1) * items_per_page
-                
-                # Construct the URL with the Nao parameter
-                page_url = url
-                if '?' in page_url:
-                    if 'Nao=' in page_url:
-                        page_url = re.sub(r'Nao=\d+', f'Nao={nao_value}', page_url)
-                    else:
-                        page_url = f"{url}&Nao={nao_value}"
-                else:
-                    page_url = f"{url}?Nao={nao_value}"
-                
-                print(f"Navigating directly to page URL: {page_url}")
+                nao_value = (page_num - 1) * 24
+                page_url = f"https://www.target.com/s?searchTerm={search_term.replace(' ', '+')}&Nao={nao_value}"
                 driver.get(page_url)
-                time.sleep(1)  # Reduced wait time
+                time.sleep(2)
             
-            # Scroll down the page to trigger lazy loading
-            scroll_page(driver)
+            # Scroll down to load content - more thorough scrolling
+            scroll_positions = [0.25, 0.5, 0.75, 1.0]
+            for position in scroll_positions:
+                driver.execute_script(f"window.scrollTo(0, document.body.scrollHeight * {position});")
+                time.sleep(0.5)
             
             # Extract products from current page
             page_products = extract_products(driver)
             
             if page_products:
-                # Add only unique products based on title
-                new_unique_count = 0
+                # Process unique products
+                new_products = 0
                 for product in page_products:
                     if 'title' in product and product['title']:
                         product_key = product['title'].strip()
@@ -103,223 +122,161 @@ def scrape_target_products(url, output_dir="results", search_term="", items_per_
                             product['store'] = 'target'
                             unique_products[product_key] = product
                             all_products.append(product)
-                            new_unique_count += 1
+                            new_products += 1
                 
-                print(f"Extracted {len(page_products)} products from page {page_num}, {new_unique_count} unique")
+                print(f"Extracted {len(page_products)} products from page {page_num}, {new_products} unique")
             else:
-                print(f"No products found on page {page_num}")
-                
-                # If we hit a page with no products, it might be the real end
-                if page_num > 1:
-                    print("Hit a page with no products, ending scrape")
-                    break
+                print(f"No products found on page {page_num}, ending scrape")
+                break
             
             # Save progress after each page
             with open(output_file, 'w', encoding='utf-8') as f:
                 json.dump(all_products, f, indent=2)
         
-        # Save the final results
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(all_products, f, indent=2)
         print(f"Completed scraping. Total unique products: {len(all_products)}")
         
     except Exception as e:
         print(f"Error during scraping: {e}")
-        
-        # Save any products we've collected so far
-        if all_products:
-            with open(output_file, 'w', encoding='utf-8') as f:
-                json.dump(all_products, f, indent=2)
-            print(f"Saved {len(all_products)} products to {output_file} before error")
-    
     finally:
-        try:
-            driver.quit()
-        except:
-            pass
+        driver.quit()
     
     return all_products
 
-def get_total_pages(driver):
-    """
-    Extract the total number of pages from the pagination element with improved accuracy
-    """
+def get_page_count(driver):
+    """Get the total number of pages"""
     try:
-        # Wait for pagination element to load
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'div[data-test="pagination"]'))
-        )
-        
-        # First try JSON data in page source - more reliable
+        # Look for pagination information in page source
         html_source = driver.page_source
+        
+        # Method 1: Check JSON data
         total_pages_match = re.search(r'"totalPages":(\d+)', html_source)
         if total_pages_match:
-            total = int(total_pages_match.group(1))
-            print(f"Found totalPages in page source: {total}")
-            return total
+            return int(total_pages_match.group(1))
         
-        # Look for "page X of Y" text
+        # Method 2: Check for "page X of Y" text
         page_text = driver.find_elements(By.XPATH, '//*[contains(text(), "page") and contains(text(), "of")]')
         for element in page_text:
-            text = element.text.strip()
-            page_match = re.search(r'page\s+\d+\s+of\s+(\d+)', text.lower())
-            if page_match:
-                return int(page_match.group(1))
+            match = re.search(r'page\s+\d+\s+of\s+(\d+)', element.text.lower())
+            if match:
+                return int(match.group(1))
         
-        # Check the last visible page number button
+        # Method 3: Check for page number buttons
         page_buttons = driver.find_elements(By.CSS_SELECTOR, 'div[data-test="pagination"] button')
         max_page = 1
         
         for button in page_buttons:
-            button_text = button.text.strip()
-            if button_text.isdigit():
-                page_num = int(button_text)
-                max_page = max(max_page, page_num)
+            if button.text.strip().isdigit():
+                max_page = max(max_page, int(button.text.strip()))
         
         if max_page > 1:
-            # Check if there's also a "next" button, which may indicate more pages
-            next_buttons = [b for b in page_buttons if b.get_attribute("aria-label") == "next page"]
-            if next_buttons:
-                # Return a reasonable default rather than a huge number
-                return 12  # Target typically has around 12 pages max
             return max_page
-            
-        # Default: single page
-        return 1
-            
-    except Exception as e:
-        print(f"Error getting total pages: {e}")
+        
         return 1  # Default to 1 page
-
-def scroll_page(driver):
-    """
-    More efficient page scrolling
-    """
-    try:
-        # Get the page height
-        last_height = driver.execute_script("return document.body.scrollHeight")
         
-        # Faster scrolling with fewer pauses
-        scroll_positions = [0.25, 0.5, 0.75, 1.0]  # Scroll in 4 steps
-        
-        for position in scroll_positions:
-            # Scroll to percentage of page
-            driver.execute_script(f"window.scrollTo(0, document.body.scrollHeight * {position});")
-            time.sleep(0.2)  # Short delay
     except Exception as e:
-        print(f"Error during page scrolling: {e}")
+        print(f"Error getting page count: {e}")
+        return 1
 
 def extract_products(driver):
-    """
-    Extract product data from the current page - optimized version
-    """
+    """Extract product data from the current page"""
     products = []
     
     try:
-        # Try one reliable selector first before falling back to BeautifulSoup
-        try:
-            product_elements = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, 'div[data-test="@web/site-top-of-funnel/ProductCardWrapper"]'))
-            )
-        except TimeoutException:
-            print("Primary product selector not found, trying alternatives")
+        # Get page source and parse with BeautifulSoup
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
         
-        # Get the page source and parse with BeautifulSoup
-        page_source = driver.page_source
-        soup = BeautifulSoup(page_source, 'html.parser')
+        # Find product containers - try multiple selectors
+        product_containers = soup.select('div[data-test="@web/site-top-of-funnel/ProductCardWrapper"]')
         
-        # Try different product container selectors in order of reliability
-        selectors = [
-            'div[data-test="@web/site-top-of-funnel/ProductCardWrapper"]',
-            'div[data-test="product-card"]', 
-            'li[data-test="groceries-product-card"]',
-            'div[class*="product-card"]',
-            'div[class*="ProductCard"]'
-        ]
-        
-        product_containers = []
-        for selector in selectors:
-            product_containers = soup.select(selector)
-            if product_containers:
-                print(f"Found {len(product_containers)} product containers using selector: {selector}")
-                break
-        
-        # Fallback: try to find product links
+        # If that didn't work, try alternate selectors
         if not product_containers:
-            product_links = soup.select('a[href^="/p/"]')
-            for link in product_links:
-                parent = link.find_parent('div')
-                if parent and parent not in product_containers:
-                    product_containers.append(parent)
-            print(f"Found {len(product_containers)} product containers via product links")
+            product_containers = soup.select('div[data-test="product-card"]')
+        if not product_containers:
+            product_containers = soup.select('div[class*="ProductCard"]')
+        if not product_containers:
+            product_containers = soup.select('a[href*="/p/"]')  # Last resort, find product links
+            
+        print(f"Found {len(product_containers)} product containers")
         
-        # Extract product data
+        # Process each product
         for container in product_containers:
             product = {}
             
-            # Title
-            title_selectors = [
-                'a[data-test="product-title"] .styles_ndsTruncate__GRSDE',
-                '.styles_ndsTruncate__GRSDE',
-                '[class*="Truncate"]',
-                'h2, h3, h4',
-                'a[href*="/p/"]'
-            ]
+            # Extract title - try multiple methods
+            # Method 1: Direct title elements
+            title_elem = container.select_one('a[data-test="product-title"] span')
+            if title_elem:
+                product['title'] = title_elem.text.strip()
             
-            for selector in title_selectors:
-                title_elem = container.select_one(selector)
+            # Method 2: Any element with truncate class
+            if 'title' not in product or not product['title']:
+                title_elem = container.select_one('.styles_ndsTruncate__GRSDE, [class*="Truncate"]')
                 if title_elem:
-                    product['title'] = title_elem.get('title', '').strip() or title_elem.text.strip()
-                    break
+                    product['title'] = title_elem.text.strip()
             
-            # Price
-            price_selectors = [
-                'span[data-test="current-price"]',
-                '[class*="price"]', 
-                '[class*="Price"]'
-            ]
+            # Method 3: Any heading element
+            if 'title' not in product or not product['title']:
+                title_elem = container.select_one('h2, h3, h4')
+                if title_elem:
+                    product['title'] = title_elem.text.strip()
+                    
+            # Method 4: Get from product link
+            if 'title' not in product or not product['title']:
+                link = container.select_one('a[href*="/p/"]')
+                if link:
+                    # Try text content of link
+                    link_text = link.text.strip()
+                    if link_text:
+                        product['title'] = link_text
+                    # Try alt text of image
+                    else:
+                        img = link.select_one('img')
+                        if img and img.get('alt'):
+                            product['title'] = img.get('alt').strip()
             
-            for selector in price_selectors:
-                price_elem = container.select_one(selector)
+            # Extract price - try multiple methods
+            price_elem = container.select_one('span[data-test="current-price"]')
+            if price_elem:
+                product['price'] = price_elem.text.strip()
+            else:
+                # Try any element with price in class
+                price_elem = container.select_one('[class*="price"], [class*="Price"]')
                 if price_elem:
                     price_text = price_elem.text.strip()
-                    if '$' in price_text and any(c.isdigit() for c in price_text):
+                    if '$' in price_text:
                         product['price'] = price_text
-                        break
             
-            # Get URL and TCIN
-            product_link = container.select_one('a[href*="/p/"]')
-            if product_link:
-                href = product_link.get('href', '')
+            # Extract URL and product ID
+            link = container.select_one('a[href*="/p/"]')
+            if link:
+                href = link.get('href', '')
                 product['url'] = 'https://www.target.com' + href if href.startswith('/') else href
                 
-                # Extract TCIN
+                # Get product ID (TCIN)
                 tcin_match = re.search(r'/A-(\d+)', href)
                 if tcin_match:
                     product['tcin'] = tcin_match.group(1)
             
-            # Only add products with at least a title
+            # Extract image URL
+            img = container.select_one('img')
+            if img:
+                product['image_url'] = img.get('src')
+            
+            # Extract brand if available
+            brand_elem = container.select_one('[data-test*="brand"], [class*="brand"]')
+            if brand_elem:
+                product['brand'] = brand_elem.text.strip()
+            
+            # Only add products with a title
             if 'title' in product and product['title']:
                 products.append(product)
-                
+    
     except Exception as e:
         print(f"Error extracting products: {e}")
     
     return products
 
 if __name__ == "__main__":
-    # Simple command line input for search term
     search_term = input("Enter search term (e.g., 'primer', 'foundation'): ")
-    
-    # Construct search URL
-    search_url = f"https://www.target.com/s?searchTerm={search_term.replace(' ', '+')}"
-    
-    # Run the scraper
-    products = scrape_target_products(
-        url=search_url,
-        output_dir="results",
-        search_term=search_term,
-        max_pages=12
-    )
-    
+    products = scrape_target_products(search_term)
     print(f"Scraped {len(products)} Target products for '{search_term}'")
